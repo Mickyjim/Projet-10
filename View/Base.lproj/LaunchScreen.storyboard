@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vI7-vJ-EEb">
+                                <rect key="frame" x="8" y="52" width="398" height="802"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="thanos" translatesAutoresizingMaskIntoConstraints="NO" id="kpg-GW-no0">
+                                        <rect key="frame" x="10" y="30" width="378" height="764"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reciplease" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YbW-73-qEV">
+                                        <rect key="frame" x="68" y="73" width="262" height="60"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="by Thanos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NmV-h6-1Qz">
+                                        <rect key="frame" x="125" y="618" width="148" height="36"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="kpg-GW-no0" secondAttribute="trailing" constant="10" id="9Im-wF-zaR"/>
+                                    <constraint firstAttribute="bottom" secondItem="kpg-GW-no0" secondAttribute="bottom" constant="8" id="AWy-ul-MOt"/>
+                                    <constraint firstItem="YbW-73-qEV" firstAttribute="top" secondItem="vI7-vJ-EEb" secondAttribute="top" constant="73" id="BMv-JY-nUa"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YbW-73-qEV" secondAttribute="trailing" symbolic="YES" id="GnA-lG-moX"/>
+                                    <constraint firstItem="NmV-h6-1Qz" firstAttribute="leading" secondItem="vI7-vJ-EEb" secondAttribute="leading" constant="125" id="ISf-wu-RLa"/>
+                                    <constraint firstAttribute="bottom" secondItem="NmV-h6-1Qz" secondAttribute="bottom" constant="148" id="XnJ-OY-5Gj"/>
+                                    <constraint firstItem="kpg-GW-no0" firstAttribute="leading" secondItem="vI7-vJ-EEb" secondAttribute="leading" constant="10" id="cv5-Vl-Gtx"/>
+                                    <constraint firstItem="YbW-73-qEV" firstAttribute="leading" secondItem="vI7-vJ-EEb" secondAttribute="leading" constant="68" id="dzE-W6-RrA"/>
+                                    <constraint firstItem="kpg-GW-no0" firstAttribute="top" secondItem="vI7-vJ-EEb" secondAttribute="top" constant="30" id="hbM-F6-Zei"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NmV-h6-1Qz" secondAttribute="trailing" symbolic="YES" id="zGg-hI-G83"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="vI7-vJ-EEb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="41d-OX-Mug"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vI7-vJ-EEb" secondAttribute="trailing" constant="8" id="OYT-2B-JY4"/>
+                            <constraint firstItem="vI7-vJ-EEb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="hB9-4O-XiT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="vI7-vJ-EEb" secondAttribute="bottom" constant="8" id="wz0-AY-NSy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="thanos" width="213" height="213"/>
+    </resources>
+</document>
