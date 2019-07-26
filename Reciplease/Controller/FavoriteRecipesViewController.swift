@@ -9,20 +9,30 @@
 import UIKit
 
 class FavoriteRecipesViewController: UIViewController {
-
     
+    // MARK: - Outlets
     @IBOutlet weak var savedResultsTableView: UITableView!
     
-    let customCellId = "CustomCellId"
-    var savedRecipes = [RecipeEntity]()
-    var selectedRecipe: RecipeEntity?
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // MARK: - Properties
+    private let customCellId = "CustomCellId"
+    private var savedRecipes = [RecipeEntity]()
+    private var selectedRecipe: RecipeEntity?
+    
+    private lazy var searchController : UISearchController = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        return searchController
+    }()
+    
+    // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        navigationItem.searchController = searchController
         
-        // Remove tableView lines in between each cell
+        /// Remove tableView lines in between each cell
         savedResultsTableView.tableFooterView = UIView()
         
         savedResultsTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: customCellId)
@@ -31,12 +41,13 @@ class FavoriteRecipesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         savedRecipes = RecipeEntity.fetchAll()
-        
+        savedRecipes = RecipeEntity.fetchAll()
+        savedResultsTableView.reloadData()
     }
     
+    // MARK: - Class methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "segueToDetailedRecipeResultViewController" {
+        if segue.identifier == "segueToDetailedFavoriteRecipesViewController" {
             let detailedFavoriteVC = segue.destination as! DetailedFavoriteRecipesViewController
             detailedFavoriteVC.recipeEntity = selectedRecipe
         }
@@ -59,12 +70,32 @@ extension FavoriteRecipesViewController: UITableViewDataSource, UITableViewDeleg
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return savedRecipes.isEmpty ? 800 : 0
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRecipe = RecipeEntity.fetchAll()[indexPath.row]
-        self.performSegue(withIdentifier: "segueToDetailedRecipeResultViewController", sender: nil)
+        self.performSegue(withIdentifier: "segueToDetailedFavoriteRecipesViewController", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let message = UILabel()
+        message.text = "Add some recipes to your favorite recipe list"
+        message.textAlignment = .center
+        message.textColor = UIColor(red: 67/255, green: 4/255, blue: 0/255, alpha: 1)
+        return message
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return savedRecipes.isEmpty ? 200 : 0
+    }
+}
+
+// MARK: - Extension for searchBar implementation
+extension FavoriteRecipesViewController : UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count == 0 {
+            savedRecipes = RecipeEntity.fetchAll()
+        } else {
+            savedRecipes = RecipeEntity.fetch(name: searchText)
+        }
+        savedResultsTableView.reloadData()
     }
 }

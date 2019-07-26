@@ -10,25 +10,28 @@ import UIKit
 
 class RecipeResultDisplayViewController: UIViewController {
     
+    // MARK: - Outlets
     @IBOutlet weak var resultTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // MARK: - Properties
     let customCellId = "CustomCellId"
     var recipes = [Match]()
     let recipesService = RecipesService()
     var recipeDetails: RecipeDetails?
     var ingredients: [String]?
     
+    // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Remove tableView lines in between each cell
+        /// Remove tableView lines in between each cell
         resultTableView.tableFooterView = UIView()
         
-        
         resultTableView.register(UINib(nibName: "CustomTableViewCell", bundle: nil), forCellReuseIdentifier: customCellId)
-        
     }
     
+    // MARK: - Class methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToDetailedRecipeResultViewController" {
             if let recipeResultDisplayVC = segue.destination as? DetailedRecipeResultViewController {
@@ -62,13 +65,17 @@ extension RecipeResultDisplayViewController: UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        activityIndicator.startAnimating()
         recipesService.getDetailedRecipes(id: recipes[indexPath.row].id) { (success, recipeDetails) in
             if success {
                 guard let recipeDetails = recipeDetails else { return }
                 self.recipeDetails = recipeDetails
                 self.ingredients = self.recipes[indexPath.row].ingredients
                 self.performSegue(withIdentifier: "segueToDetailedRecipeResultViewController", sender: nil)
+            } else {
+                self.displayAlert(message: "Could not retrieve data!")
             }
+            self.activityIndicator.stopAnimating()
         }
     }
 }

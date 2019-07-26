@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Converting String to Int
+/// Converting Int into String
 extension Int {
     var timeInSecondsToString: String {
         let minutes = self % (60*60) / 60

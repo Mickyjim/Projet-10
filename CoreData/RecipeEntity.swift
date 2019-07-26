@@ -25,6 +25,13 @@ class RecipeEntity : NSManagedObject {
         return recipeEntities
     }
     
+    static func fetch(name: String, viewContext: NSManagedObjectContext = AppDelegate.viewContext) -> [RecipeEntity] {
+        let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "name CONTAINS[cd] %@", name)
+        guard let recipeEntities = try? viewContext.fetch(request) else { return [] }
+        return recipeEntities
+    }
+    
     static func isRegistered(id: String, viewContext: NSManagedObjectContext = AppDelegate.viewContext) -> Bool {
         let request: NSFetchRequest<RecipeEntity> = RecipeEntity.fetchRequest()
         request.predicate = NSPredicate(format: "id = %@", id)

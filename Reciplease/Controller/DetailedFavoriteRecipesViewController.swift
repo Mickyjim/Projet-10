@@ -11,14 +11,11 @@ import UIKit
 class DetailedFavoriteRecipesViewController: UIViewController {
     
     var recipeEntity: RecipeEntity?
-    var ingredientLines = [String]()
-    var recipeList = [RecipeEntity]()
     
-   // MARK - Outlets
+    // MARK - Outlets
     @IBOutlet weak var recipeRatingLabel: UILabel!
     @IBOutlet weak var recipeDurationLabel: UILabel!
     @IBOutlet weak var recipeNameLabel: UILabel!
-    @IBOutlet weak var recipeIngredientsLabel: UILabel!
     @IBOutlet weak var recipeImageView: UIImageView!
     @IBOutlet weak var recipeTableView: UITableView!
     
@@ -31,20 +28,21 @@ class DetailedFavoriteRecipesViewController: UIViewController {
     }
     
     @IBAction func addFavoriteButton(_ sender: Any) {
-        
+        guard let recipeEntity = recipeEntity else { return }
+        RecipeEntity.delete(id: recipeEntity.id ?? "")
+        navigationController?.popViewController(animated: true)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.rightBarButtonItem?.tintColor = .purple
         guard let recipeEntity = recipeEntity else { return }
-        recipeRatingLabel.text = "⭐️ " + String(recipeEntity.rating!)
-        recipeDurationLabel.text = String(recipeEntity.totalTime!)
+        recipeRatingLabel.text = "⭐️ " + String(recipeEntity.rating ?? "")
+        recipeDurationLabel.text = String(recipeEntity.totalTime ?? "")
         recipeNameLabel.text = recipeEntity.name
-//        if let imageUrl = recipeEntity.images[0].hostedLargeUrl {
-//            guard let data = imageUrl.data else { return }
-//            recipeImageView.image = UIImage(data: data)
-//        }
+        if let imageData = recipeEntity.imageData {
+            recipeImageView.image = UIImage(data: imageData)
+        }
     }
 }
 
@@ -52,12 +50,16 @@ class DetailedFavoriteRecipesViewController: UIViewController {
 extension DetailedFavoriteRecipesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientLines.count
+        let ingredientLines = recipeEntity?.ingredientLines?.allObjects as? [IngredientLineEntity]
+        return ingredientLines?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = recipeTableView.dequeueReusableCell(withIdentifier: "ingredientStoredCell", for: indexPath)
-        cell.textLabel?.text = ingredientLines[indexPath.row].description
+        let cell = recipeTableView.dequeueReusableCell(withIdentifier: "ingredientInputCell", for: indexPath)
+        guard let recipeEntity = recipeEntity else { return UITableViewCell() }
+        let ingredientLines = recipeEntity.ingredientLines?.allObjects as! [IngredientLineEntity]
+        let ingredientLine = ingredientLines[indexPath.row]
+        cell.textLabel?.text = ingredientLine.name
         
         return cell
     }

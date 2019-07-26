@@ -10,8 +10,8 @@ import XCTest
 @testable import Reciplease
 
 class RecipesServiceTests: XCTestCase {
-
-    // Testing getRecipes in RecipeService
+    
+    /// Testing getRecipes in RecipeService
     func testGetRecipesShouldPostFailedCallback() {
         let fakeResponse = FakeResponse(response: nil, data: nil, error: FakeResponseData.recipeError)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
@@ -88,7 +88,7 @@ class RecipesServiceTests: XCTestCase {
     }
     
     func testGetRecipesShouldPostFailedCallbackIfNoErrorAndCorrectData() {
-        let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData, error: nil)
+        let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.recipesCorrectData, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
         
@@ -102,9 +102,9 @@ class RecipesServiceTests: XCTestCase {
         
         wait(for: [expectation], timeout: 0.01)
     }
-
+    
     // Testing getRecipe in RecipeService
-    func testGetDetailedRecipesShouldPostFailedCallback() {
+    func testGetDetailedRecipes_WhenNoResponseAndNoDataIsPassed_ShouldPostFailedCallback() {
         let fakeResponse = FakeResponse(response: nil, data: nil, error: FakeResponseData.recipeError)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
@@ -119,7 +119,7 @@ class RecipesServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetDetailedRecipesShouldPostFailedCallbackIfNoData() {
+    func testGetDetailedRecipes_WhenNoDataIsPassed_ShouldPostFailedCallback() {
         let fakeResponse = FakeResponse(response: nil, data: FakeResponseData.incorrectData, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
@@ -134,7 +134,7 @@ class RecipesServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetDetailedRecipesShouldPostFailedCallbackIfIncorrectResponse() {
+    func testGetDetailedRecipes_WhenIncorrectResponseIsPassed_ShouldPostFailedCallback() {
         let fakeResponse = FakeResponse(response: FakeResponseData.responseKO, data: FakeResponseData.incorrectData, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
@@ -149,7 +149,7 @@ class RecipesServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetDetailedRecipesShouldPostFailedCallbackIfResponseCorrectAndNilData() {
+    func testGetDetailedRecipes_WhenCorrectAndNilDataIsPassed_ShouldPostFailedCallbackIfResponse() {
         let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: nil, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
@@ -164,7 +164,7 @@ class RecipesServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetDetailedRecipesShouldPostFailedCallbackIfIncorrectData() {
+    func testGetDetailedRecipes_WhenIncorrectDataIsPassed_ShouldPostFailedCallback() {
         let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.incorrectData, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
@@ -179,8 +179,8 @@ class RecipesServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
     
-    func testGetDetailedRecipesShouldPostFailedCallbackIfNoErrorAndCorrectData() {
-        let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.correctData, error: nil)
+    func testGetDetailedRecipes_WhenNoErrorAndRecipeDetailsCorrectDataIsPassed_ShouldPostFailedCallback() {
+        let fakeResponse = FakeResponse(response: FakeResponseData.responseOK, data: FakeResponseData.recipeDetailsCorrectData, error: nil)
         let recipesSessionFake = RecipesSessionFake(fakeResponse: fakeResponse)
         let recipesService = RecipesService(recipeSession: recipesSessionFake)
         
@@ -188,6 +188,7 @@ class RecipesServiceTests: XCTestCase {
         recipesService.getDetailedRecipes(id: "Best-Easy-Honey-Lemon-Chicken-2721136") { success, recipeDetails in
             XCTAssertTrue(success)
             XCTAssertNotNil(recipeDetails)
+            XCTAssertEqual(recipeDetails?.id, "Best-Easy-Honey-Lemon-Chicken-2721136")
             expectation.fulfill()
         }
         

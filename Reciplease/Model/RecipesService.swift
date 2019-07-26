@@ -11,13 +11,15 @@ import Alamofire
 
 class RecipesService {
     
+    // MARK: - Property
     private var recipeSession: RecipesSession
     
     init(recipeSession: RecipesSession = RecipesSession()) {
         self.recipeSession = recipeSession
     }
-    
-    // API request procedure
+
+    // MARK: - Method recipes
+    /// API request procedure for recipes data
     func getRecipes(ingredients: [String], completionHandler: @escaping (Bool, [Match]?) -> Void) {
         recipeSession.ingredients = ingredients
         guard let url = URL(string: recipeSession.baseRecipesUrlString) else { return }
@@ -37,10 +39,12 @@ class RecipesService {
             completionHandler(true, recipes.matches)
         }
     }
-    // API request procedure for DetailedRecipeResultVC
+    // MARK: - Method recipeDetails
+    /// API request procedure for details in recipes data
     func getDetailedRecipes(id: String, completionHandler: @escaping (Bool, RecipeDetails?) -> Void) {
         recipeSession.id = id
         guard let url = URL(string: recipeSession.baseRecipeUrlString) else { return }
+        print(url)
         recipeSession.request(url: url) { responseData in
             guard responseData.response?.statusCode == 200 else {
                 completionHandler(false, nil)

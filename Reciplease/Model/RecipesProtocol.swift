@@ -10,10 +10,6 @@ import Foundation
 import Alamofire
 
 protocol RecipesProtocol {
-//    var baseRecipesUrlString: String { get set }
-//    var baseRecipeUrlString: String { get set }
-//    var ingredients: [String] { get set }
-//    var id: String { get set }
     
     func request(url: URL, completionHandler: @escaping (DataResponse<Any>) -> Void)
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-// Converting Int to String
+/// Converting String into Data
 extension String {
     var data: Data? {
         if let url = URL(string: self) {
@@ -18,7 +18,7 @@ extension String {
         }
         return nil
     }
-    
+  /// Changing pixel from String URL (defaut 90pixels) to enlarge image
     var imageResolutionIncrease: String {
         return self.dropLast(2) + "320"
     }

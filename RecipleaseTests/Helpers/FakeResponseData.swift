@@ -16,9 +16,16 @@ class FakeResponseData {
     class RecipeError: Error {}
     static let recipeError = RecipeError()
     
-    static var correctData: Data {
+    static var recipesCorrectData: Data {
         let bundle = Bundle(for: FakeResponseData.self)
-        let url = bundle.url(forResource: "Yummly", withExtension: "json")
+        let url = bundle.url(forResource: "Recipes", withExtension: "json")
+        let data = try! Data(contentsOf: url!)
+        return data
+    }
+    
+    static var recipeDetailsCorrectData: Data {
+        let bundle = Bundle(for: FakeResponseData.self)
+        let url = bundle.url(forResource: "RecipeDetails", withExtension: "json")
         let data = try! Data(contentsOf: url!)
         return data
     }
